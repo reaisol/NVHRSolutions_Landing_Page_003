@@ -59,9 +59,10 @@ export function ContactSection() {
   // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
+    const nextValue = id === "phone" ? value.replace(/\D/g, "") : value;
     setFormData(prev => ({
       ...prev,
-      [id]: value
+      [id]: nextValue
     }));
   };
 
@@ -185,6 +186,9 @@ export function ContactSection() {
                     <Label htmlFor="phone">Phone Number</Label>
                     <Input
                       id="phone"
+                      type="tel"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="Enter your phone number"
